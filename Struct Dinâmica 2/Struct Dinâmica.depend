@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1504469742 source:c:\users\luís\cj\foda-se\struct dinâmica\main.cpp
+	<bits/stdc++.h>
+	"Funcoes.h"
+
+1504464516 c:\users\luís\cj\foda-se\struct dinâmica\funcoes.h
+	<bits/stdc++.h>
+
+1504465750 source:c:\users\luís\cj\foda-se\struct dinâmica\funcoes.cpp
+	"Funcoes.h"
+
