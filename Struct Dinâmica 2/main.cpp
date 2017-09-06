@@ -7,7 +7,7 @@ int main()
 {
     int y;
     no k;
-    k.dado.nome="rola";
+    k.dado.nome="teste";
     k.dado.tipo="int";
     k.info=new int;
     *cint(k.info)=900;
