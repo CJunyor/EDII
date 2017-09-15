@@ -12,57 +12,68 @@ void ImprimeMenu(){
 }
 
 int Abrir(stc *STC){
-    FILE *fp;
+    int SIZE=sizeof(MTD);
+    ifstream fp;
     no x;
     string ax;
     cout("Digite o nome da Struct:");
     cin>>ax;
-    fp=fopen(ax.c_str(), "rb");
-    if(fp==NULL){
+    fp.open(ax.c_str(), ifstream::binary);
+    if(!fp.is_open()){
         cout("Nome Invalido");
-        return 1;
+        return 0;
     }
     while(1){
-        fread(&x.dado, sizeof(MTD), 1, fp);
-        if(feof(fp)) break;
+        fp.read((char *)&x.dado, SIZE);
+        if(fp.eof()) break;
         cout(x.dado.tipo<<" "<<x.dado.nome<<";");
         if(!Malocar(&x)){
             cout("Nao foi possivel abrir a Struct");
-            fclose(fp);
+            fp.close();
             return 0;
         }
         else if(x.dado.tipo=="int"){
-            fread(x.info, sizeof(int), 1, fp);
+            fp.read((char *)x.info, sizeof(int));
             STC->vars.push_back(x);
         }
         else if(x.dado.tipo=="char") {
-            fread(x.info, sizeof(char), 1, fp);
+            fp.read((char *)x.info, sizeof(char));
             STC->vars.push_back(x);
         }
         else if(x.dado.tipo=="float"){
-            fread(x.info, sizeof(float), 1, fp);
+            fp.read((char *)x.info, sizeof(float));
             STC->vars.push_back(x);
         }
         else if(x.dado.tipo=="double"){
-            fread(x.info, sizeof(double), 1, fp);
+            fp.read((char *)x.info, sizeof(double));
             STC->vars.push_back(x);
         }
         else if(x.dado.tipo=="string"){
-            fread(x.info, sizeof(string), 1, fp);
+            fp.read((char *)x.info, sizeof(string));
             STC->vars.push_back(x);
         }
     }
     STC->nome=ax;
-    fclose(fp);
+    fp.close();
     return 1;
 }
 
 void ImprimeStruct(stc* STC){
     cout("\n\nStruct "<<STC->nome<<" {");
-    for(list<no>::iterator i=STC->vars.begin();i!=STC->vars.end();i++){
-        cout("\t"<<(*i).dado.tipo<<" "<<(*i).dado.nome<<";");
+    for(no i : STC->vars){
+        cout("\t"<<i.dado.tipo<<" "<<i.dado.nome<<";");
     }
     cout("}");
+}
+
+void ImprimeValores(stc* STC){
+    for(no i: STC->vars){
+        if(i.dado.tipo=="int") cout(i.dado.nome<<": "<<*cint(i.info));
+        else if(i.dado.tipo=="char") cout(i.dado.nome<<": "<<*cchar(i.info));
+        else if(i.dado.tipo=="float") cout(i.dado.nome<<": "<<*cfloat(i.info));
+        else if(i.dado.tipo=="double") cout(i.dado.nome<<": "<<*cdouble(i.info));
+        else if(i.dado.tipo=="string") cout(i.dado.nome<<": "<<*cstring(i.info));
+    }
 }
 
 int Malocar(no *x){
@@ -129,7 +140,6 @@ void Atribuir(stc *STC){
     else if(i->dado.tipo=="float"){
         float x;
         cin>>x;
-        cin>>x;
         *cfloat(i->info)=x;
     }
     else if(i->dado.tipo=="double"){
@@ -145,35 +155,35 @@ void Atribuir(stc *STC){
 }
 
 void Salvar(stc *STC){
-    FILE *fp;
-    fp=fopen(STC->nome.c_str(),"wb");
-    if(fp==NULL) {
+    ofstream fp;
+    fp.open(STC->nome.c_str(), ofstream::binary);
+    if(!fp.is_open()) {
         cout("Nao foi possivel salvar");
         exit(1);
     }
-    for(list<no>::iterator i=STC->vars.begin();i!=STC->vars.end();i++){
-        fwrite(&(i->dado), sizeof(MTD), 1, fp);
-        if(i->dado.tipo=="int") {
-            fwrite(i->info, sizeof(int), 1, fp);
+    for(no i : STC->vars){
+        fp.write((char *)&(i.dado), sizeof(MTD));
+        if(i.dado.tipo=="int") {
+            fp.write((char *)i.info, sizeof(int));
         }
-        else if(i->dado.tipo=="char") {
-            fwrite(i->info, sizeof(char), 1, fp);
+        else if(i.dado.tipo=="char") {
+            fp.write((char *)i.info, sizeof(char));
         }
-        else if(i->dado.tipo=="float"){
-            fwrite(i->info, sizeof(float), 1, fp);
+        else if(i.dado.tipo=="float"){
+            fp.write((char *)i.info, sizeof(float));
         }
-        else if(i->dado.tipo=="double"){
-            fwrite(i->info, sizeof(double), 1, fp);
+        else if(i.dado.tipo=="double"){
+            fp.write((char *)i.info, sizeof(double));
         }
-        else if(i->dado.tipo=="string"){
-            fwrite(i->info, sizeof(string), 1, fp);
+        else if(i.dado.tipo=="string"){
+            fp.write((char *)i.info, sizeof(string));
         }
     }
-    fclose(fp);
+    fp.close();
 }
 
 int Iniciar(stc *STC){
-    stc *STC2=new stc;
+    //stc *STC2=new stc;
     while(1){
         ImprimeMenu();
         char c;
@@ -191,13 +201,7 @@ int Iniciar(stc *STC){
                 Atribuir(STC);
                 break;
             case '4':
-                for(list<no>::iterator i=STC->vars.begin();i!=STC->vars.end();i++){
-                    if(i->dado.tipo=="int") cout(i->dado.nome<<": "<<*cint(i->info));
-                    else if(i->dado.tipo=="char") cout(i->dado.nome<<": "<<*cchar(i->info));
-                    else if(i->dado.tipo=="float") cout(i->dado.nome<<": "<<*cfloat(i->info));
-                    else if(i->dado.tipo=="double") cout(i->dado.nome<<": "<<*cdouble(i->info));
-                    else if(i->dado.tipo=="string") cout(i->dado.nome<<": "<<*cstring(i->info));
-                }
+                ImprimeValores(STC);
                 break;
             case '5':
                 Salvar(STC);

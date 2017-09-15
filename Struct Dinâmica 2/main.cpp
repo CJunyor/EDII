@@ -1,21 +1,31 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <ostream>
+#include <fstream>
+#include <cstring>
+#include <string>
+#include <list>
 #include "Funcoes.h"
 
 using namespace std;
 
 int main()
 {
-    int y;
     no k;
     k.dado.nome="teste";
     k.dado.tipo="int";
     k.info=new int;
     *cint(k.info)=900;
-    FILE *fn;
-    fn=fopen("Teste", "wb");
-    fwrite(&k.dado, sizeof(MTD), 1, fn);
-    fwrite(k.info, sizeof(int), 1, fn);
-    fclose(fn);
+    ofstream fn;
+    fn.open("Teste", ofstream::binary);
+    if(!fn.is_open()) {
+        cout("Nome errado");
+        return 0;
+    }
+    fn.write((char *)&k.dado, sizeof(MTD));
+    fn.write((char *)k.info, sizeof(int));
+    fn.close();
     stc *STC=new stc;
     Iniciar(STC);
     return 0;

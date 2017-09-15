@@ -1,4 +1,11 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <ostream>
+#include <fstream>
+#include <cstring>
+#include <string>
+#include <list>
 #define cout(x) cout<<x<<endl
 #define cint(x) (int *) x
 #define cchar(x) (char *) x
@@ -24,6 +31,7 @@ typedef struct{
 }stc;
 
 void ImprimeMenu();
+void ImprimeValores(stc*);
 void ImprimeStruct(stc*);
 int Malocar(no *);
 void CriarStruct(stc *);
