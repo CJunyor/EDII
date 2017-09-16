@@ -12,7 +12,7 @@
 1505442635 source:c:\users\luís\cj\struct dinâmica 2\funcoes.cpp
 	"Funcoes.h"
 
-1505441401 c:\users\luís\cj\struct dinâmica 2\funcoes.h
+1505527183 c:\users\luís\cj\struct dinâmica 2\funcoes.h
 	<cstdio>
 	<cstdlib>
 	<iostream>
@@ -22,7 +22,7 @@
 	<string>
 	<list>
 
-1505442635 source:c:\users\luís\cj\struct dinâmica 2\main.cpp
+1505528402 source:c:\users\luís\cj\struct dinâmica 2\main.cpp
 	<cstdio>
 	<cstdlib>
 	<iostream>
