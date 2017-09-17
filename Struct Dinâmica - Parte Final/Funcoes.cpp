@@ -9,6 +9,18 @@ void ImprimeMenu(){
     cout<<">";
 }
 
+int DSize(no *x){
+    if((x->dado).tipo=="int") return(sizeof(int));
+    else if((x->dado).tipo=="char") return(sizeof(char));
+    else if((x->dado).tipo=="float") return(sizeof(float));
+    else if((x->dado).tipo=="double") return(sizeof(double));
+    else if((x->dado).tipo=="string") return((*cstring(x->info)).size());
+    else {
+        cout("Tipo Errado Informado!!");
+        return 0;
+    }
+}
+
 void ImprimeSubMenu(){
     cout("================================================");
     cout("          1 - Atribuir Valores");
@@ -59,7 +71,11 @@ int Abrir(stc *STC){
             STC->vars.push_back(x);
         }
         else if(x.dado.tipo=="string"){
-            fd.read((char *)x.info, sizeof(string));
+            int tam;
+            fmd>>tam;
+            char s[tam+1];
+            fd.read(s, tam);
+            *cstring(x.info)=s;
             STC->vars.push_back(x);
         }
     }
@@ -88,16 +104,11 @@ void ImprimeValores(stc* STC){
 }
 
 int Malocar(no *x){
-    if((x->dado).tipo=="int")
-        x->info=new int;
-    else if((x->dado).tipo=="char")
-        x->info=new char;
-    else if((x->dado).tipo=="float")
-        x->info=new float;
-    else if((x->dado).tipo=="double")
-        x->info=new double;
-    else if((x->dado).tipo=="string")
-        x->info=new string;
+    if((x->dado).tipo=="int")         x->info=new int;
+    else if((x->dado).tipo=="char")   x->info=new char;
+    else if((x->dado).tipo=="float")  x->info=new float;
+    else if((x->dado).tipo=="double") x->info=new double;
+    else if((x->dado).tipo=="string") x->info=new string;
     else {
         cout("Tipo Errado Informado!!");
         return 0;
@@ -175,7 +186,7 @@ void Salvar(stc *STC){
     }
     for(no i : STC->vars){
         fmd<<i.dado.nome;
-        fmd<<" "+i.dado.tipo<<"\n";
+        fmd<<" "+i.dado.tipo;
         if(i.dado.tipo=="int") {
             fd.write((char *)i.info, sizeof(int));
         }
@@ -189,8 +200,10 @@ void Salvar(stc *STC){
             fd.write((char *)i.info, sizeof(double));
         }
         else if(i.dado.tipo=="string"){
-            fd.write((char *)i.info, sizeof(string));
+            fd.write((char *)(*cstring(i.info)).c_str(), DSize(&i));
+            fmd<<" "<<DSize(&i);
         }
+        fmd<<"\n";
     }
     fd.close();
     fmd.close();
@@ -237,7 +250,7 @@ int Iniciar(stc *STC){
                 SubMenu(STC);
                 break;
             case '3':
-                exit(1);
+                return 0;
                 break;
         }
     }

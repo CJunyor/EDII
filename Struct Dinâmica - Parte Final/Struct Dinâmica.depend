@@ -33,3 +33,27 @@
 	<list>
 	"Funcoes.h"
 
+1505614151 source:c:\users\luís\cj\struct dinâmica - parte final\funcoes.cpp
+	"Funcoes.h"
+
+1505613534 c:\users\luís\cj\struct dinâmica - parte final\funcoes.h
+	<cstdio>
+	<cstdlib>
+	<iostream>
+	<ostream>
+	<fstream>
+	<cstring>
+	<string>
+	<list>
+
+1505586182 source:c:\users\luís\cj\struct dinâmica - parte final\main.cpp
+	<cstdio>
+	<cstdlib>
+	<iostream>
+	<ostream>
+	<fstream>
+	<cstring>
+	<string>
+	<list>
+	"Funcoes.h"
+
