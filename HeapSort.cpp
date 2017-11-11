@@ -21,7 +21,6 @@ int main()
 {
     int b[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     int w[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-    to_heap(b, 9);
     heap_sort(b, 9);
     for(int i = 0; i<9; i++) cout<<b[i]<<" ";
 	return 0;
