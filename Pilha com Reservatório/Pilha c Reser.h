@@ -1,47 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAXSIZE 200
+
 typedef struct{
     int info,next;
 }node;
+
 typedef struct pilha{
     int top;
 }pilha;
+
 int avail=0;
+
 node Reservatorio[MAXSIZE];
-void iniciar(void){
-    for(int i=0;i<MAXSIZE;i++)
-        Reservatorio[i].next=i+1;
-    Reservatorio[MAXSIZE-1].next=-1;
-}
-int myalloc(void){
-    int x=avail;
-    avail=Reservatorio[avail].next;
-    return (x);
-}
-void myfree(int x){
-    Reservatorio[x].next=avail;
-    avail=x;
-}
-void push(pilha *x,int y){
-    int k=myalloc();
-    Reservatorio[k].next=(x->top);
-    Reservatorio[k].info=y;
-    (x->top)=k;
-}
-int pop(pilha *x){
-    int y,k=Reservatorio[x->top].info;
-    y=(x->top);
-    (x->top)=Reservatorio[x->top].next;
-    myfree(y);
-    return(k);
-}
-int top(pilha *x){
-    return(Reservatorio[x->top].info);
-}
-int isempty(pilha *x){
-    return(x->top==-1);
-}
-int isfull(void){
-    return(avail==-1);
-}
+
+void iniciar(void);
+
+int myalloc(void);
+
+void myfree(int);
+
+void push(pilha *, int);
+
+int pop(pilha *);
+
+int top(pilha *);
+
+int isempty(pilha *);
+
+int isfull(void);

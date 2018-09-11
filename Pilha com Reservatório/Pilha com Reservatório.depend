@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1492841434 source:c:\users\luís\cj\pilha com reservatório\main.c
-	"Pilha c Reser.h"
-
-1492841303 c:\users\luís\cj\pilha com reservatório\pilha c reser.h
-	<stdio.h>
-	<stdlib.h>
-
